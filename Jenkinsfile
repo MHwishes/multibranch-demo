@@ -1,12 +1,15 @@
-@Library('github.com/cloudbeers/multibranch-demo-lib') _
-standardBuild {
-    environment = 'golang:1.5.0'
-    mainScript = '''
-go version
-go build -v hello-world.go
-'''
-    postScript = '''
-ls -l
-./hello-world
-'''
+pipeline {
+	agent { docker 'node:6.9.5' }
+	stages {
+		stage('build') {
+			steps {
+				sh 'npm --version'
+					sh 'echo "Hello World"'
+					sh '''
+					echo "Multiline shell steps works too"
+					ls -lah
+					'''
+			}
+		}
+	}
 }
